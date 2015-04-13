@@ -1,4 +1,7 @@
 <?php
+	/* requirements */
+	require_once ("./functions.php");
+
 	/* constants */
 	date_default_timezone_set("Europe/Berlin");
 	$header = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -22,7 +25,7 @@
 	font-size:x-small;
 }
 </style>
-<meta name="generator" content="Protokoller v0.3.2">
+<meta name="generator" content="Protokoller '.$VERSION.', https://github.com/ZeckoVicath/Protokoller">
 
 <title>NAME. minutes from the '.date('d.m.Y').'</title> <!-- MODIFY: the NAME -->
 </head>
@@ -32,9 +35,6 @@
 	<h1>cs minutes '.date('d.m.Y').'</h1>
 	<p>minutes of NAME</p> <!-- MODIFY: the NAME -->
 </div>';
-
-	/* requirements */
-	require_once ("./functions.php");
 
 	/* init variables */
 	/* $pwcorrect = false; */ /* TODO is this still necessary? */

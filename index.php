@@ -34,7 +34,7 @@ if (file_exists($memberxml)) {
 	}
 ?><!DOCTYPE HTML>
 <html><head>
-<title>Protokoller v0.3.2</title>
+<title>Protokoller <?php echo($VERSION);?></title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <style>
 body {
@@ -135,7 +135,7 @@ function getPersonList (elem) {
 </head>
 <body>
 <noscript><h1 style="color:red">Sorry, I was too lazy to make this also work without JavaScript. So please turn it on or use a different text editor.</h1></noscript>
-<h1>Protokoller v0.3.3</h1> <!-- TODO -->
+<h1>Protokoller <?php echo($VERSION);?></h1>
 <form id="proto" name="proto" action="result.php" method="POST">
 <div class="container">
 <h2>attendance</h2>

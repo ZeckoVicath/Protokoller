@@ -1,4 +1,7 @@
 <?php
+
+$VERSION = '0.4'
+
 // check if in root or in subdirectory
 $ppre = '';
 {
