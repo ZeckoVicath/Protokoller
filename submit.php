@@ -2,7 +2,7 @@
 if ($_POST['submitpw'] == "password") { // MODIFY: the password to the left
 	date_default_timezone_set("Europe/Berlin"); // MODIFY: the timezone to the left
 	$pdate = date("Ymd");
-	$fname = "./".$pdate.".html";
+	$fname = "./".$pdate.".html"; // MODIFY: directory to save to
 	
 	/* pull from git repository (optional) */
 	/*
@@ -22,15 +22,15 @@ if ($_POST['submitpw'] == "password") { // MODIFY: the password to the left
 	
 	// check if file already exists and if needed, change name
 	$dupnumber = 0;
-	while (file_exists($fname)) {
-		clearstatcache();
+	$fhandle = False;
+	while ($fhandle === False) {
+		if ($dupnumber > 100) { // MODIFY: max trials / protocols per day
+			die("couldn't open protocol file to write");
+		}
+		$fhandle = fopen($fname,"x");
+		// MODIFY: directory to save to
 		$fname = "./".$pdate."-".$dupnumber.".html";
 		$dupnumber++;
-	}
-	
-	$fhandle = fopen ($fname,"w");
-	if (!$fhandle) {
-		die("couldn't open protocol file to write");
 	}
 	if (!fputs($fhandle,$_POST['source_view'])) {
 		die("couldn't actually write to protocol file (disk full?)");
