@@ -3,7 +3,7 @@
 	require_once ("./functions.php");
 
 	/* constants */
-	date_default_timezone_set("Europe/Berlin");
+	date_default_timezone_set($TIMEZONE);
 	$header = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -27,13 +27,13 @@
 </style>
 <meta name="generator" content="Protokoller '.$VERSION.', https://github.com/ZeckoVicath/Protokoller">
 
-<title>NAME. minutes from the '.date('d.m.Y').'</title> <!-- MODIFY: the NAME -->
+<title>'.$NAME.' minutes from the '.date('d.m.Y').'</title>
 </head>
 
 <body>
 <div id="header">
 	<h1>cs minutes '.date('d.m.Y').'</h1>
-	<p>minutes of NAME</p> <!-- MODIFY: the NAME -->
+	<p>minutes of '.$NAME.'</p>
 </div>';
 
 	/* init variables */
@@ -42,10 +42,10 @@
 
 	/* iterate through form data */
 	foreach ($_POST as $key => $value) {
-		/* TODO */
+		/* TODO The Case distinction below is suboptimal, it includes a redundant if and possibly some bug */
 		if (endsWith($key,"_present")) {
 			$pid = substr($key,0,-8);
-			$from = $_POST[$pid.'_from'];
+			$from = $_POST[$pid.'_from']; /* TODO does present always imply from!="" ?*/
 			if ($from != "")
 				$from = "from ".$from;
 			$till = $_POST[$pid.'_till'];
@@ -55,15 +55,17 @@
 			if ($from != "" && $till != "") {
 				$fromtill = " (".$from.", ".$till.")";
 			} else if ($from == "" && $till == "") {
-				// $fromtill = "";
+				// $fromtill = ""; 
 			} else {
 				$fromtill = " (".$from.$till.")";
 			}
 			$person = str_replace("_"," ",$pid).$fromtill;
 			$present .= $person . ', ';
-		} else {
+		} /* TODO this else case is not needed anymore, right?
+                    else {
 			//echo "<p>unknown post data: ($key, $value)</p>";
 		}
+                */
 	}
 	$present = substr($present,0,-2); // cut ", " at the end away
 
@@ -105,7 +107,7 @@
 	$agenda .= "</ul>";
 
 	$footer = '<div id="footer">
-back to the <a href="."><!-- MODIFY: the reference is necessary -->[homepage]</a>
+back to the <a href="'.$WEBSITE.'">[homepage]</a>
 </div>
 </body></html>';
 

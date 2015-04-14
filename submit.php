@@ -1,35 +1,36 @@
 <?php
-if ($_POST['submitpw'] == "password") { // MODIFY: the password to the left
-	date_default_timezone_set("Europe/Berlin"); // MODIFY: the timezone to the left
+if ($_POST['submitpw'] == $PASSWORD) {
+	date_default_timezone_set($TIMEZONE);
 	$pdate = date("Ymd");
-	$fname = "./".$pdate.".html"; // MODIFY: directory to save to
+	$fname = $PROTO_PATH.$pdate.".html";
 	
 	/* pull from git repository (optional) */
-	/*
-	// return status of the git command
-	$ret = -1;
-	// output --> ignored
-	$gitput = "";
-
-	// assuming that we're currently executed in a git (sub-)directory
-	exec("git pull", $gitput, $ret);
-
-	if ($ret != 0) {
+	if ($USE_GIT) {
+            /*
+            // return status of the git command
+            $ret = -1;
+            
+	    // output --> ignored
+	    $gitput = "";
+            
+	    // assuming that we're currently executed in a git (sub-)directory
+	    exec("git pull", $gitput, $ret);
+            
+	    if ($ret != 0) {
 		die ("couldn't pull git repo");
-	}
-	
+            }
 	*/
+	}
 	
 	// check if file already exists and if needed, change name
 	$dupnumber = 0;
 	$fhandle = False;
 	while ($fhandle === False) {
-		if ($dupnumber > 100) { // MODIFY: max trials / protocols per day
+		if ($dupnumber > $MAX_PROTOS) {
 			die("couldn't open protocol file to write");
 		}
 		$fhandle = fopen($fname,"x");
-		// MODIFY: directory to save to
-		$fname = "./".$pdate."-".$dupnumber.".html";
+		$fname = $PROTO_PATH.$pdate."-".$dupnumber.".html";
 		$dupnumber++;
 	}
 	if (!fputs($fhandle,$_POST['source_view'])) {
@@ -38,38 +39,38 @@ if ($_POST['submitpw'] == "password") { // MODIFY: the password to the left
 	fclose($fhandle);
 	
 	/* push to git repository (optional) */
-	/*
-	// push the protocol to git repository
-	exec("git add ".$fname, $gitput, $ret);
-	if ($ret != 0) {
-		die ("couldn't add the protocol file. maybe this isn't a git repo?");
-	}
+        if ($USE_GIT) {
+            /*
+            // push the protocol to git repository
+            exec("git add ".$fname, $gitput, $ret);
+            if ($ret != 0) {
+                    die ("couldn't add the protocol file. maybe this isn't a git repo?");
+            }
 
-	exec('git commit -m "protokoller: '.$fname.'"', $gitput, $ret);
-	if ($ret != 0) {
-		die("couldn't commit the repo. maybe you committed the same protocol twice?");
+            exec('git commit -m "protokoller: '.$fname.'"', $gitput, $ret);
+            if ($ret != 0) {
+                    die("couldn't commit the repo. maybe you committed the same protocol twice?");
+            }
+            
+            exec("git push", $gitput, $ret);
+            if ($ret != 0) {
+                    die("couldn't push the repo ...");
+            }
+            */
 	}
-	
-	exec("git push", $gitput, $ret);
-	if ($ret != 0) {
-		die("couldn't push the repo ...");
-	}
-	*/
-	
-	// TODO line 53-62 need be changed
-	// $fname = "./".$pdate."-".$dupnumber.".html"; needs to be worked in
-	// send mail
-	$mailto  = "news@domain.tld";
-	$subject = $pdate." meeting minutes";
-	$message = "see https://domain.tld/".$pdate.".html"; // MODIFY: the URL to the left
-	$from    = "From: news@domain.tld";
-
-	if (!mail($mailto, $subject, $message, $from)) {
+	// send mail (optional)
+        if ($SEND_MAIL) {
+            $mailto  = $MAIL_RECIPIENT;
+            $subject = $pdate." meeting minutes";
+            $message = "see "."https://domain.tld/".$pdate.".html"; // TODO:  $fname = "./".$pdate."-".$dupnumber.".html"; needs to be worked in
+            $from    = "From: ".$MAIL_SENDER;
+            if (!mail($mailto, $subject, $message, $from)) {
 		die("couldn't send mail.");
-	}
+            }
+        }
 
-	echo "<p>protocol written and mail sent.</p>";
-	echo "<p>see <a href=\""."https://domain.tld/".$pdate.".html"."\">here</a>.</p>"; // MODIFY: the URL to the left
+	echo "<p>protocol written".( ($SEND_MAIL) ? " and mail sent" : "" ).".</p>";
+	echo "<p>see <a href=\""."https://domain.tld/".$pdate.".html"."\">here</a>.</p>"; // TODO:  $fname = "./".$pdate."-".$dupnumber.".html"; needs to be worked in
 } else {
 	echo "<p>wrong password</p>";
 }
