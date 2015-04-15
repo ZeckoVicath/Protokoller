@@ -62,8 +62,8 @@ h1 {
 $tops = 2;
 echo "var tops=$tops;";
 ?>
-function prePersons (who) {
-	document.write("<table id=\""+who+"_table\" style=\"width:100%;\"><colgroup><col width=\"50%\"><col width=\"25%\"><col width=\"25%\"></colgroup><tr><td>present "+who+":</td><td>from:</td><td>to:</td></tr>"
+function prePersons () {
+	document.write("<table id=\"attendance_table\" style=\"width:100%;\"><colgroup><col width=\"50%\"><col width=\"25%\"><col width=\"25%\"></colgroup><tr><td>present people:</td><td>from:</td><td>to:</td></tr>"
 	);
 }
 function postPersons () {
@@ -98,7 +98,7 @@ function addGuest () {
 	} else {
 		guestname=naminp.value;
 	}
-	document.getElementById("guests_table").tBodies[0].innerHTML += generatePersonRow(guestname);
+	document.getElementById("attendance_table").tBodies[0].innerHTML += generatePersonRow(guestname);
 	setChecked(getPid(guestname));
 	checkCount();
 	naminp.value="";
@@ -132,29 +132,15 @@ function getPersonList (elem) {
 <div class="container">
 <h2>attendance</h2>
 <script>
-prePersons("members");
+prePersons("attendance");
 <?php
-foreach ($members as $member) {
-	echo "printPerson(\"$member\");\n";
-}
-?>
-postPersons();
-prePersons("collaborators");
-<?php
-foreach ($collaborators as $member) {
-	echo "printPerson(\"$member\");\n";
-}
-?>
-postPersons();
-prePersons("guests");
-<?php
-foreach ($guests as $member) {
-	echo "printPerson(\"$member\");\n";
+foreach ($PEOPLE as $person) {
+	echo "printPerson(\"$person\");\n";
 }
 ?>
 postPersons();
 </script>
-<input type="text" id="newGuestName"/><input type="button" value="add guest" onclick="addGuest()"/>
+<input type="text" id="newGuestName"/><input type="button" value="+" onclick="addGuest()"/>
 <div>total people count: <span id="people_counter">0</span></div>
 </div>
 
