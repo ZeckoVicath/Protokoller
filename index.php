@@ -58,14 +58,6 @@ h1 {
 </style>
 <script type="text/javascript" src="functions.js"></script>
 <script>
-// TogetherJS config
-/*TogetherJSConfig_cloneClicks = true;
-TogetherJSConfig_findRoom = "aegoKaish9aqu9riemae";
-TogetherJSConfig_autoStart = true;
-TogetherJSConfig_suppressJoinConfirmation = true; */ // for auto-join
-</script>
-<!-- <script src="https://togetherjs.com/togetherjs-min.js"></script> -->
-<script>
 <?php
 $tops = 2;
 echo "var tops=$tops;";
@@ -198,10 +190,6 @@ postPersons();
 		<td>
 			<input type="checkbox" name="quorum" checked="checked" / >&nbsp;yes
 		</td>
-		<!--
-		<td>
-			<button onclick="TogetherJS(this); return false;">Start TogetherJS</button>
-		</td>-->
 	</tr>
 	</table>
 </div>
