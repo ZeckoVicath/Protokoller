@@ -13,7 +13,7 @@ $SEND_MAIL = False; // Should the minute taker send the protocol by mail
 $MAIL_RECIPIENT = 'protocols@domain.tld'; // Who should receive the protocol by mail?
 $MAIL_SENDER = 'protocols@domain.tld'; // Who should send the protocol by mail?
 $MAX_PROTOS = 100; // max trials to save file and max protocols per day
-$PEOPLE = array("Max Mustermann", "Marlene Musterfrau");
+$PEOPLE = array("Max Mustermann", "Marlene Musterfrau"); // The static list of the assembly's members
 
 // check if in root or in subdirectory
 $ppre = '';
@@ -28,11 +28,13 @@ $ppre = '';
 }
 
 	/* TODO: These functions may be useful to create an API to show meeting minutes gists in an overview list on a website */
+	
 	/* ### news functions ### */
 	/* reads all files of a directory as xml files and returns the array with their xml root nodes
 	   $maxEntries = -1 => no restriction
 	   $oldCount: how many entries of the past to show, -1 => no restriction
 	*/
+	/*
 	class News {
 		public $title, $text, $pubDate, $eventbegin, $eventend, $fileid, $filename, $absfilename, $location, $gallery, $image, $thumbnail;
 	}
@@ -177,9 +179,10 @@ $ppre = '';
 		}
 		return $tops;
 	}
-
-	/* TODO: Most of this should not be needed */
+	*/
+	
 	/* ### menu functions ### */
+	/*
 	function countMenuEntries ($xmlfile) {
 		global $ppre;
 		if (!file_exists($xmlfile))
@@ -244,9 +247,10 @@ $ppre = '';
 			$i++;
 		}
 	}
-
-	/* TODO: Some of this is needed */
+	*/
+	
 	/* ### utility functions ### */
+	/*
 	function merge ($comparator, $arr1, $arr2) {
 		$ret = array();
 		while (!empty($arr1) and !empty($arr2)) {
@@ -270,9 +274,12 @@ $ppre = '';
 		}
 		return $ret;
 	}
+	*/
+	/*
 	function startsWith($haystack, $needle) {
 		return !strncmp($haystack, $needle, strlen($needle));
 	}
+	*/
 	function endsWith($haystack, $needle) {
 		$length = strlen($needle);
 		if ($length == 0) {
@@ -280,9 +287,12 @@ $ppre = '';
 		}
 		return (substr($haystack, -$length) === $needle);
 	}
+	/*
 	function getIfThere($where,$what) {
 		return getElse($where,$what,null);
 	}
+	*/
+	/*
 	function getElse($where,$what,$default) {
 		if (empty($where[$what])) {
 			return $default;
@@ -290,9 +300,11 @@ $ppre = '';
 			return $where[$what];
 		}
 	}
+	*/
 
 	/* TODO: Most of this should not be needed */
 	// this is NOT for security.
+	/*
 	function sanitizeTitleText ($text) {
 		return str_replace('"','',
 			str_replace("'",'',
@@ -302,6 +314,8 @@ $ppre = '';
 			)
 		);
 	}
+	*/
+	/*
 	function getLanguage() {
 		// GET data override
 		$overridelang = getElse($_GET, 'lang', 'unset');
@@ -327,6 +341,8 @@ $ppre = '';
 		header ("Content-Language: $lang");
 		return $lang;
 	}
+	*/
+	/*
 	function stripNonPrintables($str) {
 		$ret = strval($str);
 		for ($i=0; $i<strlen($ret); ++$i) {
@@ -336,9 +352,13 @@ $ppre = '';
 		}
 		return $ret;
 	}
+	*/
+	/*
 	function mungeEmail($address, $clicktext = "Please click this text", $linktext = null, $noscripttext = "N/A (please enable javascript)") {
 		return mungeLink("mailto:".$address, $clicktext, is_null($linktext) ? $address : $linktext, $noscripttext);
 	}
+	*/
+	/*
 	function mungeLink($address, $clicktext = "Please click this text", $linktext = null, $noscripttext = "N/A (please enable javascript)") {
 		$unmixedkey = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.@-_/ #:";
 		$inprogresskey = $unmixedkey;
@@ -432,5 +452,6 @@ $ppre = '';
 			"</script>";
 		return $txt;
 	}
+	*/
 
 ?>

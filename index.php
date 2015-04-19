@@ -1,37 +1,8 @@
 <?php
-/* constants */
-$memberxml = './mitglieder.xml';
 
 /* requirements */
 require_once ("./functions.php");
 
-/* init variables */
-$members = array();
-$collaborators = array();
-$guests = array();
-
-if (file_exists($memberxml)) {
-		$xmlObject = simplexml_load_file($memberxml);
-		if (!$xmlObject) {
-		    echo "Failed loading XML\n";
-		    foreach(libxml_get_errors() as $error) {
-		        echo "\t", $error->message;
-		    }
-		    exit();
-		} else {
-			foreach ($xmlObject->mitglied as $mitglied) {
-				if ($mitglied->status == "member") {
-					$members[]=$mitglied->name;
-				} else if ($mitglied->status == "collaborator") {
-					$collaborators[]=$mitglied->name;
-				} else {
-					$guests[]=$mitglied->name;
-				}
-			}
-		}
-	} else {
-		exit("Couldn't open file $memberxml");
-	}
 ?><!DOCTYPE HTML>
 <html><head>
 <title>Protokoller <?php echo($VERSION);?></title>
@@ -59,7 +30,7 @@ h1 {
 <script type="text/javascript" src="functions.js"></script>
 <script>
 <?php
-$tops = 2;
+$tops = 2; // TODO: why is this initialized with 2? Would the value of 1 break something?
 echo "var tops=$tops;";
 ?>
 function prePersons () {
@@ -192,7 +163,7 @@ postPersons();
 		<?php } ?>
 		<div id="replace_me">
 			<input type="hidden" id="top_number" name="top_number" value="<?php echo $tops; ?>">
-			<?php /*this hidden input is not needed anymore, is it?*/ ?>
+			<?php /* TODO: this hidden input is referenced by the function generateNewTops(lastTop). Therefore it must exist in the first place. */ ?>
 		</div>
 		<input type="button" value="add agenda item" onclick="generateNewTops(tops);">
 	</div>

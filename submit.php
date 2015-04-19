@@ -6,7 +6,6 @@ if ($_POST['submitpw'] == $PASSWORD) {
 	
 	/* pull from git repository (optional) */
 	if ($USE_GIT) {
-            /*
             // return status of the git command
             $ret = -1;
             
@@ -19,19 +18,18 @@ if ($_POST['submitpw'] == $PASSWORD) {
 	    if ($ret != 0) {
 		die ("couldn't pull git repo");
             }
-	*/
 	}
 	
 	// check if file already exists and if needed, change name
-	$dupnumber = 0;
+	$dupnumber = -1;
 	$fhandle = False;
 	while ($fhandle === False) {
 		if ($dupnumber > $MAX_PROTOS) {
 			die("couldn't open protocol file to write");
 		}
 		$fhandle = fopen($fname,"x");
-		$fname = $PROTO_PATH.$pdate."-".$dupnumber.".html";
 		$dupnumber++;
+		$fname = $PROTO_PATH.$pdate."-".$dupnumber.".html";
 	}
 	if (!fputs($fhandle,$_POST['source_view'])) {
 		die("couldn't actually write to protocol file (disk full?)");
@@ -40,7 +38,6 @@ if ($_POST['submitpw'] == $PASSWORD) {
 	
 	/* push to git repository (optional) */
         if ($USE_GIT) {
-            /*
             // push the protocol to git repository
             exec("git add ".$fname, $gitput, $ret);
             if ($ret != 0) {
@@ -56,13 +53,12 @@ if ($_POST['submitpw'] == $PASSWORD) {
             if ($ret != 0) {
                     die("couldn't push the repo ...");
             }
-            */
 	}
 	// send mail (optional)
         if ($SEND_MAIL) {
             $mailto  = $MAIL_RECIPIENT;
             $subject = $pdate." meeting minutes";
-            $message = "see "."https://domain.tld/".$pdate.".html"; // TODO:  $fname = "./".$pdate."-".$dupnumber.".html"; needs to be worked in
+            $message = "see ".$WEBSITE.$pdate.($dupnumber >= 1?"-".($dupnumber-1):"").".html";
             $from    = "From: ".$MAIL_SENDER;
             if (!mail($mailto, $subject, $message, $from)) {
 		die("couldn't send mail.");
@@ -70,7 +66,7 @@ if ($_POST['submitpw'] == $PASSWORD) {
         }
 
 	echo "<p>protocol written".( ($SEND_MAIL) ? " and mail sent" : "" ).".</p>";
-	echo "<p>see <a href=\""."https://domain.tld/".$pdate.".html"."\">here</a>.</p>"; // TODO:  $fname = "./".$pdate."-".$dupnumber.".html"; needs to be worked in
+	echo "<p>see <a href=\"".$WEBSITE.$pdate.($dupnumber >= 1?"-".($dupnumber-1):"").".html"."\">here</a>.</p>"; // TODO:  $fname = "./".$pdate."-".$dupnumber.".html"; needs to be worked in
 } else {
 	echo "<p>wrong password</p>";
 }
