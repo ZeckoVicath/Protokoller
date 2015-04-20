@@ -29,10 +29,8 @@ h1 {
 </style>
 <script type="text/javascript" src="functions.js"></script>
 <script>
-<?php
-$tops = 2; // TODO: why is this initialized with 2? Would the value of 1 break something?
-echo "var tops=$tops;";
-?>
+var tops=0;
+
 function prePersons () {
 	document.write("<table id=\"attendance_table\" style=\"width:100%;\"><colgroup><col width=\"50%\"><col width=\"25%\"><col width=\"25%\"></colgroup><tr><td>present people:</td><td>from:</td><td>to:</td></tr>"
 	);
@@ -154,19 +152,9 @@ postPersons();
 <div class="container">
 <h2>agenda</h2>
 	<div id="tops_div" class="sectioncontent">
-				<?php for ($top_nr = 1; $top_nr <= $tops; $top_nr++) { ?>
-		<div>
-			<h3>item <?php echo $top_nr?></h3>
-			<label for="top<?php echo $top_nr; ?>_heading">headline:&nbsp;</label><input type="text" size="60" name="top<?php echo $top_nr; ?>_heading" id="top<?php echo $top_nr; ?>_heading"><br>
-			<textarea style="margin-bottom:20px;" cols="85" rows="8" id="top<?php echo $top_nr; ?>" name="top<?php echo $top_nr; ?>"></textarea>
-		</div>
-		<?php } ?>
-		<div id="replace_me">
-			<input type="hidden" id="top_number" name="top_number" value="<?php echo $tops; ?>">
-			<?php /* TODO: this hidden input is referenced by the function generateNewTops(lastTop). Therefore it must exist in the first place. */ ?>
-		</div>
-		<input type="button" value="add agenda item" onclick="generateNewTops(tops);">
 	</div>
+    <script>generateNewTops(2); // initial top generation</script>
+	<input id="genTopsButton" type="button" value="add agenda item" onclick="generateNewTops(1);">
 </div>
 
 <div class="container">
