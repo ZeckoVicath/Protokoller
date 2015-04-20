@@ -1,4 +1,5 @@
 <?php
+
 	/* requirements */
 	require_once ("./functions.php");
 
@@ -32,7 +33,7 @@
 
 <body>
 <div id="header">
-	<h1>cs minutes '.date('d.m.Y').'</h1>
+	<h1>'.$NAME.' minutes '.date('d.m.Y').'</h1>
 	<p>minutes of '.$NAME.'</p>
 </div>';
 
