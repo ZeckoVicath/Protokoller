@@ -152,9 +152,9 @@ postPersons();
 <div class="container">
 <h2>agenda</h2>
 	<div id="tops_div" class="sectioncontent">
+		<script>generateNewTops(2); // initial top generation</script>
+		<input id="genTopsButton" type="button" value="add agenda item" onclick="generateNewTops(1);">
 	</div>
-    <script>generateNewTops(2); // initial top generation</script>
-	<input id="genTopsButton" type="button" value="add agenda item" onclick="generateNewTops(1);">
 </div>
 
 <div class="container">
