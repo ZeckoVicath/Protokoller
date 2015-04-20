@@ -30,68 +30,7 @@ h1 {
 <script type="text/javascript" src="functions.js"></script>
 <script>
 var tops=0;
-
-function prePersons () {
-	document.write("<table id=\"attendance_table\" style=\"width:100%;\"><colgroup><col width=\"50%\"><col width=\"25%\"><col width=\"25%\"></colgroup><tr><td>present people:</td><td>from:</td><td>to:</td></tr>"
-	);
-}
-function postPersons () {
-	document.write("</table>");
-}
-function getPid (name) {
-	return name.replace(/ /g, "_");
-}
-function dePid (pid) {
-	return pid.replace (/_/g, " ");
-}
-function generatePersonRow (name) {
-	var substname = getPid(name);
-	return (
-		"<tr>"
-		+ "<td><input type=\"checkbox\" id=\"" + substname+"_present" + "\" name=\"" + substname+"_present" + "\" onchange=\"checkCount()\" / >"+name+"</td>"
-		+ "<td><input type=\"text\" size=\"10\" id=\"" + substname+"_from" + "\" name=\"" + substname+"_from" + "\" onchange=\"setChecked('"+substname+"')\" / >"
-		+ "<input type=\"button\" value=\"now\" onclick=\"setChecked('"+substname+"'); setTimeNow('"+substname+"_from')\" / ></td>"
-		+ "<td><input type=\"text\" size=\"10\" id=\"" + substname+"_till" + "\" name=\"" + substname+"_till" + "\" onchange=\"setChecked('"+substname+"')\" / >"
-		+ "<input type=\"button\" value=\"now\" onclick=\"setChecked('"+substname+"'); setTimeNow('"+substname+"_till')\" / ></td>"
-		+ "</tr>"
-	);
-}
-function printPerson (name) {
-	document.write(generatePersonRow(name));
-}
-function addGuest () {
-	var naminp = document.getElementById("newGuestName");
-	var guestname = "";
-	if (naminp.value == "") {
-		guestname=prompt("name of the guest");
-	} else {
-		guestname=naminp.value;
-	}
-	document.getElementById("attendance_table").tBodies[0].innerHTML += generatePersonRow(guestname);
-	setChecked(getPid(guestname));
-	checkCount();
-	naminp.value="";
-}
-function createPersonList () {
-	var inps = document.getElementsByTagName("input");
-	var list = new Array ();
-	for (var i=0; i<inps.length; i++) {
-		var el = inps[i];
-		if (el.type=="checkbox") {
-			if (el.checked && endsWith(el.name,"_present")) {
-				list.push(dePid(el.name.substring(0,el.name.length-8)));
-			}
-		}
-	}
-	return list;
-}
-function getPersonList (elem) {
-	var list = createPersonList();
-	elem.innerHTML = ""; // clear
-	for (var i=0; i<list.length; i++) {
-		elem.innerHTML += "<option>"+list[i]+"</option>";
-	}
-}
+var static_persons = <?php echo(json_encode($PEOPLE));?>;
 </script>
 </head>
 <body>
@@ -100,18 +39,16 @@ function getPersonList (elem) {
 <form id="proto" name="proto" action="result.php" method="POST">
 <div class="container">
 <h2>attendance</h2>
-<script>
-prePersons("attendance");
-<?php
-foreach ($PEOPLE as $person) {
-	echo "printPerson(\"$person\");\n";
-}
-?>
-postPersons();
-</script>
+<table id="attendance_table" style="width:100%;"><colgroup><col width="50%"><col width="25%"><col width="25%"></colgroup><tr><td>present people:</td><td>from:</td><td>to:</td></tr>
+</table>
 <input type="text" id="newGuestName"/><input type="button" value="+" onclick="addGuest()"/>
 <div>total people count: <span id="people_counter">0</span></div>
 </div>
+<script>
+for (var i=0; i<static_persons.length; i++) {
+	addPerson(static_persons[i]);
+}
+</script>
 
 <div class="container">
 <h2>organisational</h2>
