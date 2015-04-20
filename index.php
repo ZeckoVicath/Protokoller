@@ -89,9 +89,10 @@ for (var i=0; i<static_persons.length; i++) {
 <div class="container">
 <h2>agenda</h2>
 	<div id="tops_div" class="sectioncontent">
-		<script>generateNewTops(2); // initial top generation</script>
-		<input id="genTopsButton" type="button" value="add agenda item" onclick="generateNewTops(1);">
+		<!-- this div contains ONLY tops divs -->
 	</div>
+	<script>generateNewTops(2); // initial top generation, now that the tops_div exists</script>
+	<input id="genTopsButton" type="button" value="add agenda item" onclick="generateNewTops(1);">
 </div>
 
 <div class="container">
