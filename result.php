@@ -5,25 +5,31 @@
 
 	/* constants */
 	date_default_timezone_set($TIMEZONE);
-	$header = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+	$header = '<!DOCTYPE HTML>
 <html><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
 <style>
+body {
+	margin:0;
+	padding:1em;
+	font-family:serif;
+}
+h1 {
+	font-weight:lighter;
+}
 #header {
-	border-bottom:2px gray groove;
+	border-bottom:0.1em solid gray;
 	text-align:center;
 	padding-bottom:10px;
 	margin-bottom:10px;
 }
-
 #footer {
-	border-top:2px gray groove;
-	border-bottom:2px gray groove;
+	border-top:0.1em solid gray;
+	border-bottom:0.1em solid gray;
 	padding:10px;
 }
-
 #header p {
-	font-size:x-small;
+	font-size:small;
 }
 </style>
 <meta name="generator" content="Protokoller '.$VERSION.', https://github.com/ZeckoVicath/Protokoller">
@@ -75,14 +81,14 @@
 	$moderator = $_POST['moderator'];
 	$protocol = $_POST['protocol'];
 	$quorate = $_POST['quorum'] ? 'yes' : 'no';
-	$formal = "<table><tbody>
-	<tr><td><strong>begin:</strong></td><td>$begintime</td></tr>
-	<tr><td><strong>end:</strong></td><td>$endtime</td></tr>
-	<tr><td><strong>present:</strong></td><td>$present</td></tr>
-	<tr><td><strong>moderator:</strong></td><td>$moderator</td></tr>
-	<tr><td><strong>minute taker:</strong></td><td>$protocol</td></tr>
-	<tr><td><strong>quorate:</strong></td><td>$quorate</td></tr>
-</tbody></table>";
+	$formal = "<table>
+	<tr><td><b>begin:</b></td><td>$begintime</td></tr>
+	<tr><td><b>end:</b></td><td>$endtime</td></tr>
+	<tr><td><b>present:</b></td><td>$present</td></tr>
+	<tr><td><b>moderator:</b></td><td>$moderator</td></tr>
+	<tr><td><b>minute taker:</b></td><td>$protocol</td></tr>
+	<tr><td><b>quorate:</b></td><td>$quorate</td></tr>
+</table>";
 
 	$agenda = "<h2>agenda</h2>
 <ul>";
@@ -94,11 +100,8 @@
 			$thead = $_POST[$ihead];
 			$tbody = str_replace("\n","<br/>",$_POST[$ibody]);
 			$agenda .= "\n	<li>
-		<div><h3>item $i: $thead</h3>
-			<blockquote>
-				<p>$tbody</p>
-			</blockquote>
-		</div>
+		<h3>item $i: $thead</h3>
+		<p>$tbody</p>
 	</li>";
 			$i += 1;
 			$ihead = 'top'.$i.'_heading';
