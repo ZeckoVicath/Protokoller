@@ -62,7 +62,7 @@ if ($_POST['submitpw'] == $PASSWORD) {
 	// send mail (optional)
         if ($SEND_MAIL) {
             $mailto  = $MAIL_RECIPIENT;
-            $subject = $pdate." meeting minutes";
+            $subject = $pdate.($dupnumber >= 1?"-".($dupnumber-1):"")." meeting minutes";
             $message = "see ".$WEBSITE.$pdate.($dupnumber >= 1?"-".($dupnumber-1):"").".html";
             $from    = "From: ".$MAIL_SENDER;
             if (!mail($mailto, $subject, $message, $from)) {
@@ -71,7 +71,7 @@ if ($_POST['submitpw'] == $PASSWORD) {
         }
 
 	echo "<p>protocol written".( ($SEND_MAIL) ? " and mail sent" : "" ).".</p>";
-	echo "<p>see <a href=\"".$WEBSITE.$pdate.($dupnumber >= 1?"-".($dupnumber-1):"").".html"."\">here</a>.</p>"; // TODO:  $fname = "./".$pdate."-".$dupnumber.".html"; needs to be worked in
+	echo "<p>see <a href=\"".$WEBSITE.$pdate.($dupnumber >= 1?"-".($dupnumber-1):"").".html"."\">here</a>.</p>";
 } else {
 	echo "<p>wrong password</p>";
 }
