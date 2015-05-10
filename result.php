@@ -44,35 +44,34 @@ h1 {
 </div>';
 
 	/* init variables */
-	/* $pwcorrect = false; */ /* TODO is this still necessary? */
 	$present = "";
 
 	/* iterate through form data */
 	foreach ($_POST as $key => $value) {
-		/* TODO The Case distinction below is suboptimal, it includes a redundant if and possibly some bug */
 		if (endsWith($key,"_present")) {
 			$pid = substr($key,0,-8);
-			$from = $_POST[$pid.'_from']; /* TODO does present always imply from!="" ?*/
-			if ($from != "")
+			$from = $_POST[$pid.'_from'];
+			if ($from != "") {
+				// this happens if somebody was there from the beginning
 				$from = "from ".$from;
+			}
 			$till = $_POST[$pid.'_till'];
-			if ($till != "")
-				$till = "till ".$till;
+			if ($till != "") {
+				// the person was there until the end
+				$till = "until ".$till;
+			}
 			$fromtill = "";
 			if ($from != "" && $till != "") {
 				$fromtill = " (".$from.", ".$till.")";
 			} else if ($from == "" && $till == "") {
-				// $fromtill = ""; 
+				// person was there all the time => no comment needed
+				// fromtill is already initialized as "".
 			} else {
 				$fromtill = " (".$from.$till.")";
 			}
 			$person = str_replace("_"," ",$pid).$fromtill;
 			$present .= $person . ', ';
-		} /* TODO this else case is not needed anymore, right?
-                    else {
-			//echo "<p>unknown post data: ($key, $value)</p>";
 		}
-                */
 	}
 	$present = substr($present,0,-2); // cut ", " at the end away
 
