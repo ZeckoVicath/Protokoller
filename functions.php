@@ -2,6 +2,8 @@
 
 include_once("config.php");
 
+date_default_timezone_set($TIMEZONE);
+
 function startsWith($haystack, $needle) {
 	return !strncmp($haystack, $needle, strlen($needle));
 }

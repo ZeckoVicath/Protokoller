@@ -5,7 +5,6 @@
 
 
 if ($_POST['submitpw'] == $PASSWORD) {
-	date_default_timezone_set($TIMEZONE);
 	$pdate = date("Ymd");
 	$fname = $PROTO_PATH.$pdate.".html";
 	

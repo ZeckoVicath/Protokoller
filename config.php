@@ -9,6 +9,7 @@ $WEBSITE = 'https://domain.tld/protokoller/'; // Homepage URL for footer of the 
 $TIMEZONE = 'Europe/Berlin'; // In what time zone is the minute taker deployed, important for correct time stamps
 $PASSWORD = 'password'; // The submit password against unauthorized usage, choose something cryptographically difficult
 $USE_GIT = False; // Should the minute taker push the protocol to a git repository
+$JUST_DOWNLOAD = True; // incompatible with USE_GIT and SEND_MAIL, lets you just download the protocol html file
 $SEND_MAIL = False; // Should the minute taker send the protocol by mail
 $MAIL_RECIPIENT = 'protocols@domain.tld'; // Who should receive the protocol by mail?
 $MAIL_SENDER = 'protocols@domain.tld'; // Who should send the protocol by mail?

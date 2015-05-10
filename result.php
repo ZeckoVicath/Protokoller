@@ -115,6 +115,14 @@ back to the <a href="'.$WEBSITE.'">[homepage]</a>
 </body></html>';
 
 	$protocol = $header."\n".$formal."\n".$agenda."\n".$footer; // newlines are for prettier html code
+
+	if ($JUST_DOWNLOAD) {
+		header('Content-Type: text/html');
+		$dstname = 'meeting_'.date("Ymd").'.html';
+		header('Content-Disposition: attachment; filename="'.$dstname.'"');
+		echo ($protocol);
+		die();
+	}
 ?><!DOCTYPE HTML>
 <head>
 <title>preview and send minutes</title>
