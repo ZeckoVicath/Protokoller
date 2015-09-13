@@ -131,7 +131,7 @@ back to the <a href="'.$WEBSITE.'">[homepage]</a>
 <body>
 <form id="submit_proto" name="submit_proto" action="submit.php" method="POST">
 <textarea id="source_view" name="source_view" style="width:100%; min-height:300px;"></textarea><br/>
-<input type="button" value="update preview" onclick="update_preview()"/><input type="password" name="submitpw"/><input type="submit" value="upload protocol and send mail"/><!-- MODIFY: the value if necessary --><br/>
+<input type="button" value="update preview" onclick="update_preview()"/><input type="password" name="submitpw"/><input type="submit" value="upload protocol and send mail"/><!-- TODO MODIFY: the value if necessary --><br/>
 </form>
 <iframe id="preview" style="width:100%; min-height:500px;"></iframe>
 <script>
