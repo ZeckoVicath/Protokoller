@@ -2,6 +2,21 @@
 
 include_once("config.php");
 
+$VERSION = "0.5";
+
+if (!isset($PEOPLE)) {
+	$f = fopen("people.txt", "r");
+	if ($f) {
+		$PEOPLE = [];
+		while (($line = fgets($f)) !== false) {
+			$line = trim($line);
+			if (strlen($line) > 0) {
+				$PEOPLE[] = $line;
+			}
+		}
+	}
+}
+
 date_default_timezone_set($TIMEZONE);
 
 // TODO refine this to provide a gist generation API to the backends

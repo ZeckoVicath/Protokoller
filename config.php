@@ -1,7 +1,5 @@
 <?php
 
-$VERSION = '0.4';
-
 $NAME = 'The Team Name'; // What is the assembly's name for which you are using the minute taker
 $ADMIN_EMAIL = 'admin@domain.tld'; // Who should be contacted if an internal server error occurs (is publicly displayed on error page)
 $PROTO_PATH = './'; // the relative path (to the the scripts directory) where the protocol should be saved
